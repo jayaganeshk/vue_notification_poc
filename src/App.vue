@@ -1,28 +1,34 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar app color="primary" dark>
+      <div class="text-center">Vue Native Notification POC</div>
+    </v-app-bar>
+
+    <v-main>
+      <VueNotification />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VueNotification from "./components/VueNotification";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      showAndroid: false,
+      showios: false,
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
-</script>
+    VueNotification,
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  mounted() {
+    Notification.requestPermission();
+    console.log(Notification.permission);
+    // this.$notification.requestPermission().then(console.log);
+  },
+};
+</script>
